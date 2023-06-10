@@ -18,8 +18,8 @@ namespace ArtHive.Models
 
         [MaxLength(500)]
         public string? Description { get; set; }
-        
-        public string ImageURL { get; set; }
+
+        public string? Image { get; set; }
 
         [Required(ErrorMessage = "The price must be in range 0.01 - 999999.99"), Range(0.01, 999999.99)]
         public double Price { get; set; }

@@ -1,0 +1,22 @@
+﻿@model ArtHive.Models.Artwork
+
+@{
+    var imagePath = (Model != null && !string.IsNullOrEmpty(Model.Image)) ? "/images/artworks/" + Model.Image : "/images/default-image.jpg";
+}
+
+<img src="@imagePath" id="photo-preview" class="img-thumbnail" alt="Artwork Image" />
+
+<script>
+    function previewImage(event){
+        var input = event.target;
+        if(input.files && files[0]){
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const imagePreview = documant.querySelector("#photo-preview");
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
