@@ -6,23 +6,29 @@ namespace ArtHive.Models
     {
         Visa,
         MasterCard,
-        PayPel
+        InteractDebit,
+        PayPel,
+        Strip
     }
     public class Order
     {
         public int Id { get; set; }
 
+        public string UserId { get; set; }
+
+        public int CartId { get; set; }
+
         [Required()]
         [Display(Name = "Order")]
         public int OrderDetailId { get; set; }
 
-        [Required(ErrorMessage = "You must provide your First Name"), MaxLength(200)]
-        public string FirstName { get; set; }
+        //[Required(ErrorMessage = "You must provide your First Name"), MaxLength(200)]
+        //public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "You must provide your Last Name"), MaxLength(200)]
-        public string LastName { get; set; }
+        //[Required(ErrorMessage = "You must provide your Last Name"), MaxLength(200)]
+        //public string LastName { get; set; }
 
-        public DateTime OrderDate { get; set; } = DateTime.Now;
+        //public DateTime OrderDate { get; set; } = DateTime.Now;
 
         [Display(Name = "Total Price")]
         public double TotalPrice { get; set; }
@@ -45,10 +51,16 @@ namespace ArtHive.Models
         
         [Required(ErrorMessage = "You must enter your Email Id"), MaxLength(256)]
         public string Email { get; set; }
-        
+
+        public Boolean PaymentReceived { get; set; }
+
         [Required(ErrorMessage = "You must select a Payment Method"), MaxLength(256)]
         public PaymentMethods PaymentMethod { get; set; }
 
         public List<OrderDetail> OrderDetails { get; set; } // child reference
+
+        public User? User { get; set; }
+
+        public Cart? Cart { get; set; }
     }
 }
