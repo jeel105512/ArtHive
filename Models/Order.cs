@@ -57,8 +57,6 @@ namespace ArtHive.Models
         [Required(ErrorMessage = "You must select a Payment Method"), MaxLength(256)]
         public PaymentMethods PaymentMethod { get; set; }
 
-        public List<OrderDetail> OrderDetails { get; set; } // child reference
-
         public User? User { get; set; }
 
         public Cart? Cart { get; set; }

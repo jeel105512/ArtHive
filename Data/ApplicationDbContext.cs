@@ -8,7 +8,6 @@ namespace ArtHive.Data
     {
         public DbSet<Artwork> Artworks { get; set; }
         public DbSet<Collection> Collections { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }

@@ -25,7 +25,6 @@ namespace ArtHive.Models
         public double Price { get; set; }
 
         public Collection? Collection { get; set; } // parent reference
-        public List<OrderDetail>? Details { get; set; } // child reference
         public List<CartItem>? CartItems { get; set; }
     }
 }
