@@ -52,7 +52,7 @@ namespace ArtHive.Models
         [Required(ErrorMessage = "You must enter your Email Id"), MaxLength(256)]
         public string Email { get; set; }
 
-        public Boolean PaymentReceived { get; set; }
+        public bool PaymentReceived { get; set; }
 
         [Required(ErrorMessage = "You must select a Payment Method"), MaxLength(256)]
         public PaymentMethods PaymentMethod { get; set; }
