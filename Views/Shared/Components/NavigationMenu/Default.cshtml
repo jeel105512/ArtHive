@@ -1,4 +1,6 @@
-﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+﻿@model List<MenuItem>
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ArtHive</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -9,6 +11,10 @@
             <ul class="navbar-nav flex-grow-1">
                 @foreach (var menuItem in Model)
                 {
+                    if (menuItem.Authorized.GetValueOrDefault() && !User.Identity.IsAuthenticated) continue;
+
+                    if (User.Identity.IsAuthenticated && menuItem.AllowedRoles != null && menuItem.AllowedRoles.Count > 0 && menuItem.AllowedRoles.Find(role => User.IsInRole(role)) == null) continue;
+
                     if (menuItem.DropdownItems != null)
                     {
                         <li class="nav-item dropdown">
@@ -19,6 +25,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @foreach (var dropdownItem in menuItem.DropdownItems)
                                 {
+                                    if (menuItem.Authorized.GetValueOrDefault() && !User.Identity.IsAuthenticated) continue;
+                                    if (User.Identity.IsAuthenticated && menuItem.AllowedRoles != null && menuItem.AllowedRoles.Count > 0 && menuItem.AllowedRoles.Find(role => User.IsInRole(role)) == null) continue;
                                     <li>
                                         <a class="dropdown-item" asp-controller="@dropdownItem.Controller" asp-action="@dropdownItem.Action">@dropdownItem.Label</a>
                                     </li>

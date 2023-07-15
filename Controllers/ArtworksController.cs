@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ArtHive.Data;
 using ArtHive.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ArtHive.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ArtworksController : Controller
     {
         private readonly ApplicationDbContext _context;

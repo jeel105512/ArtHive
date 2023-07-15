@@ -1,0 +1,62 @@
+﻿@model ArtHive.Models.Collection
+
+@{
+    ViewData["Title"] = Model.Name + " Artworks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().Creator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().Collection)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Artworks) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Collection.Name)
+            </td>
+            <td>
+                <a asp-action="ArtworkDetails" asp-route-id="@item.Id">Details</a> | 
+                <a asp-asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.Id">Add to Cart</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
