@@ -26,6 +26,7 @@ namespace ArtHive.Controllers
         {
             var collections = await _context.Collections
                 .OrderBy(collection => collection.Name)
+                .Include(collection => collection.Artworks) // to get access of the artworks in the ShopByCollection() Action
                 .ToListAsync();
 
             return View(collections);

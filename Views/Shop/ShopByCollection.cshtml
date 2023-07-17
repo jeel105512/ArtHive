@@ -1,31 +1,26 @@
 ﻿@model IEnumerable<ArtHive.Models.Collection>
 
 @{
-    ViewData["Title"] = "Collections";
+    ViewData["Title"] = "Shop by Collections";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<header class="shop-by-category-header">
+    <h1>@ViewData["Title"]</h1>
+</header>
+<div id="shop-by-category">
+    @foreach(var collection in Model)
+    {
+        <div class="shop-by-category-card">
+            @if (collection.Artworks != null && collection.Artworks.Any() && collection.Artworks.First().Image != null)
+            {
+                <img src="/images/artworks/@collection.Artworks.First().Image" alt="Artwork Image" />
+            }
+            else
+            {
+                <img src="/images/default-image.jpg" alt="Placeholder Image">
+            }
+            <a asp-action="Details" asp-route-id="@collection.Id" class="anchor-link-button"><span class="anchor-link-button-text">@collection.Name</span></a>
+        </div>
+    }
+</div>
