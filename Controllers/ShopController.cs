@@ -40,5 +40,15 @@ namespace ArtHive.Controllers
 
             return View(collectionWithArtworks);
         }
+
+        public async Task<IActionResult> ArtworkDetails(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var artwork = await _context.Artworks.FindAsync(id);
+            if(artwork == null) return NotFound();
+
+            return View(artwork);
+        }
     }
 }

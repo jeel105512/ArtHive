@@ -1,0 +1,26 @@
+﻿@model ArtHive.Models.Artwork
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="artwork-details">
+    <img src="~/images/artworks/@Model.Image" alt="@Model.Title" class="artwork-details-background-image">
+    <header class="artwork-details-header">
+        <a asp-action="Details" asp-route-id="@Model.CollectionId"><i class="fa-solid fa-arrow-left-long"></i> Back</a>
+    </header>
+    <div class="artwork-details-artwork-info">
+        <div class="artwork-details-artwork-info-left">
+            <img src="~/images/artworks/@Model.Image" alt="@Model.Title">
+        </div>
+        <div class="artwork-details-artwork-info-right">
+            <h1>@Model.Title</h1>
+            <p>BY <span>@Model.Creator</span></p>
+            <p>$@Model.Price</p>
+            <hr>
+            <p>@Model.Description</p>
+            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="artwork-details-anchor-link-button"><span class="artwork-details-anchor-link-button-text">Add to cart</span></a>
+        </div>
+    </div>
+</div>
