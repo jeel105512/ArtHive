@@ -7,7 +7,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -59,3 +59,20 @@
 }
     </tbody>
 </table>
+*@
+
+<div class="grid">
+    <div class="grid-col grid-col--1">
+    </div>
+    <div class="grid-col grid-col--2">
+    </div>
+    <div class="grid-col grid-col--3">
+    </div>
+    <div class="grid-col grid-col--4">
+    </div>
+
+    @foreach(var artwork in Model)
+    {
+        <div class="grid-item"><a asp-controller="Artworks" asp-action="Details" asp-route-id="@artwork.Id"><img src="~/images/artworks/@artwork.Image" alt="@artwork.Title" class="all-artwork-img"></a></div>
+    }
+</div>

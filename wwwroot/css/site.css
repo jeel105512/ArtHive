@@ -242,3 +242,40 @@ body {
             z-index: -1;
             width: 100%;
         }
+
+/* Shop All artwork */
+.all-artwork-img {
+    width: 100%;
+}
+
+/* Using floats */
+.grid {
+    display: flex;
+    gap: 1em;
+    padding: 1em;
+}
+
+.grid-col {
+    flex: 1;
+}
+
+.grid-col--2,
+.grid-col--3 {
+    display: none
+}
+
+.grid-item {
+    padding: 0.5em 0;
+}
+
+@media(min-width: 768px) {
+    .grid-col--2 {
+        display: block;
+    }
+}
+
+@media(min-width: 1080px) {
+    .grid-col--3 {
+        display: block;
+    }
+}
