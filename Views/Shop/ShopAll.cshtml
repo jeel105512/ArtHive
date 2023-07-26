@@ -7,60 +7,6 @@
 
 <h1>@ViewData["Title"]</h1>
 
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creator)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Collection)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creator)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Collection.Name)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-*@
-
 <div class="grid">
     <div class="grid-col grid-col--1">
     </div>
@@ -73,6 +19,6 @@
 
     @foreach(var artwork in Model)
     {
-        <div class="grid-item"><a asp-controller="Artworks" asp-action="Details" asp-route-id="@artwork.Id"><img src="~/images/artworks/@artwork.Image" alt="@artwork.Title" class="all-artwork-img"></a></div>
+        <div class="grid-item"><a asp-action="ArtworkDetails" asp-route-id="@artwork.Id" asp-route-value="ShopAll"><img src="~/images/artworks/@artwork.Image" alt="@artwork.Title" class="all-artwork-img"></a></div>
     }
 </div>

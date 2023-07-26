@@ -1,14 +1,15 @@
 ﻿@model ArtHive.Models.Artwork
 
 @{
-    ViewData["Title"] = Model.Title;
+    ViewData["Title"] = @Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //string sourceAction = ViewContext.RouteData.Values["action"].ToString(); // ***** works
 }
 
 <div id="artwork-details">
     <img src="~/images/artworks/@Model.Image" alt="@Model.Title" class="artwork-details-background-image">
     <header class="artwork-details-header">
-        <a asp-action="Details" asp-route-id="@Model.CollectionId"><i class="fa-solid fa-arrow-left-long"></i> Back</a>
+        <a asp-action="@ViewBag.Value" asp-route-id="@Model.CollectionId"><i class="fa-solid fa-arrow-left-long"></i> Back</a>
     </header>
     <div class="artwork-details-artwork-info">
         <div class="artwork-details-artwork-info-left">
@@ -20,7 +21,17 @@
             <p>$@Model.Price</p>
             <hr>
             <p>@Model.Description</p>
-            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="artwork-details-anchor-link-button"><span class="artwork-details-anchor-link-button-text">Add to cart</span></a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-action="AddToCart">
+                    <input type="hidden" name="artworkId" value="@Model.Id" />
+                    <input type="hidden" name="quantity" value="1" />
+                    <div class="anchor-link-button-add-to-cart">
+                        <input type="submit" value="Add to cart" class="anchor-link-button-text-add-to-cart" />
+                        <span class="anchor-link-button-overlay-add-to-cart"></span>
+                    </div>
+                </form>
+            }
         </div>
     </div>
 </div>

@@ -7,7 +7,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -53,10 +53,35 @@
                 @Html.DisplayFor(modelItem => item.Collection.Name)
             </td>
             <td>
-                <a asp-action="ArtworkDetails" asp-route-id="@item.Id">Details</a> | 
-                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.Id">Add to Cart</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-action="AddToCart">
+                      <input type="hidden" name="artworkId" value="@item.Id"/>  
+                      <input type="hidden" name="quantity" value="1"/>
+                      
+                      <input type="submit" value="AddToCart" class="btn btn-primary"/>
+                </form>
+            }
+
+            <a asp-action="ArtworkDetails" asp-route-id="@item.Id">View Product</a>
             </td>
         </tr>
 }
     </tbody>
-</table>
+</table>*@
+
+<div class="grid">
+    <div class="grid-col grid-col--1">
+    </div>
+    <div class="grid-col grid-col--2">
+    </div>
+    <div class="grid-col grid-col--3">
+    </div>
+    <div class="grid-col grid-col--4">
+    </div>
+
+    @foreach (var artwork in Model.Artworks)
+    {
+        <div class="grid-item"><a asp-action="ArtworkDetails" asp-route-id="@artwork.Id" asp-route-value="ShopByCollectionDetails"><img src="~/images/artworks/@artwork.Image" alt="@artwork.Title" class="all-artwork-img"></a></div>
+    }
+</div>

@@ -1,6 +1,9 @@
 ﻿using ArtHive.Data;
+using ArtHive.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace ArtHive.Controllers
 {
@@ -31,8 +34,8 @@ namespace ArtHive.Controllers
 
             return View(collections);
         }
-
-        public async Task<IActionResult> Details(int? id)
+        
+        public async Task<IActionResult> ShopByCollectionDetails(int? id)
         {
             var collectionWithArtworks = await _context.Collections
                 .Include(collection => collection.Artworks)
@@ -41,14 +44,59 @@ namespace ArtHive.Controllers
             return View(collectionWithArtworks);
         }
 
-        public async Task<IActionResult> ArtworkDetails(int? id)
+        public async Task<IActionResult> ArtworkDetails(int? id, string value)
         {
             if (id == null) return NotFound();
 
-            var artwork = await _context.Artworks.FindAsync(id);
+            var artwork = await _context.Artworks.FirstOrDefaultAsync(artwork => artwork.Id == id);
             if(artwork == null) return NotFound();
 
+            ViewBag.Value = value;
+
             return View(artwork);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddToCart(int artworkId, int quantity)
+        {
+            //string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (User == null) return NotFound();
+
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var cart = await _context.Carts
+                .FirstOrDefaultAsync(cart => cart.UserId == userId);
+
+            if (cart == null)
+            {
+                cart = new Cart { UserId = userId };
+
+                if (!ModelState.IsValid) return NotFound();
+                
+                await _context.AddAsync(cart);
+                await _context.SaveChangesAsync();
+            }
+
+            var artwork = await _context.Artworks
+                .FirstOrDefaultAsync(artwork => artwork.Id == artworkId);
+
+            if (artwork == null) return NotFound();
+
+            var cartItem = new CartItem
+            {
+                Cart = cart,
+                Artwork = artwork,
+                Quantity = quantity,
+                Price = (decimal)artwork.Price
+            };
+
+            if (!ModelState.IsValid) return NotFound();
+
+            await _context.AddAsync(cartItem);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ArtworkDetails", "Shop", new { id = artworkId });
         }
     }
 }
