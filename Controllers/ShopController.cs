@@ -44,14 +44,14 @@ namespace ArtHive.Controllers
             return View(collectionWithArtworks);
         }
 
-        public async Task<IActionResult> ArtworkDetails(int? id, string value)
+        public async Task<IActionResult> ArtworkDetails(int? id, string backAction)
         {
             if (id == null) return NotFound();
 
             var artwork = await _context.Artworks.FirstOrDefaultAsync(artwork => artwork.Id == id);
             if(artwork == null) return NotFound();
 
-            ViewBag.Value = value;
+            ViewBag.BackAction = backAction;
 
             return View(artwork);
         }

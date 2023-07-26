@@ -82,6 +82,6 @@
 
     @foreach (var artwork in Model.Artworks)
     {
-        <div class="grid-item"><a asp-action="ArtworkDetails" asp-route-id="@artwork.Id" asp-route-value="ShopByCollectionDetails"><img src="~/images/artworks/@artwork.Image" alt="@artwork.Title" class="all-artwork-img"></a></div>
+        <div class="grid-item"><a asp-action="ArtworkDetails" asp-route-id="@artwork.Id" asp-route-backAction="ShopByCollectionDetails"><img src="~/images/artworks/@artwork.Image" alt="@artwork.Title" class="all-artwork-img"></a></div>
     }
 </div>

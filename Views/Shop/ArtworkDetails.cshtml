@@ -9,7 +9,7 @@
 <div id="artwork-details">
     <img src="~/images/artworks/@Model.Image" alt="@Model.Title" class="artwork-details-background-image">
     <header class="artwork-details-header">
-        <a asp-action="@ViewBag.Value" asp-route-id="@Model.CollectionId"><i class="fa-solid fa-arrow-left-long"></i> Back</a>
+        <a asp-action="@ViewBag.BackAction" asp-route-id="@Model.CollectionId"><i class="fa-solid fa-arrow-left-long"></i> Back</a>
     </header>
     <div class="artwork-details-artwork-info">
         <div class="artwork-details-artwork-info-left">
