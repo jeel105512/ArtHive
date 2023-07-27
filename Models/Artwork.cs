@@ -22,7 +22,7 @@ namespace ArtHive.Models
         public string? Image { get; set; }
 
         [Required(ErrorMessage = "The price must be in range 0.01 - 999999.99"), Range(0.01, 999999.99)]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         public Collection? Collection { get; set; } // parent reference
         public List<CartItem>? CartItems { get; set; }

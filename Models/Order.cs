@@ -4,7 +4,7 @@ namespace ArtHive.Models
 {
     public enum PaymentMethods
     {
-        Visa,
+        VISA,
         MasterCard,
         InteractDebit,
         PayPel,
@@ -31,7 +31,7 @@ namespace ArtHive.Models
         //public DateTime OrderDate { get; set; } = DateTime.Now;
 
         [Display(Name = "Total Price")]
-        public double TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         
         [Required(ErrorMessage = "You must enter your Address")]
         public string Address { get; set; }

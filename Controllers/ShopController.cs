@@ -2,6 +2,7 @@
 using ArtHive.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -60,13 +61,10 @@ namespace ArtHive.Controllers
         [Authorize]
         public async Task<IActionResult> AddToCart(int artworkId, int quantity)
         {
-            //string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (User == null) return NotFound();
-
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
             var cart = await _context.Carts
-                .FirstOrDefaultAsync(cart => cart.UserId == userId);
+                .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
 
             if (cart == null)
             {
@@ -88,7 +86,7 @@ namespace ArtHive.Controllers
                 Cart = cart,
                 Artwork = artwork,
                 Quantity = quantity,
-                Price = (decimal)artwork.Price
+                Price = artwork.Price
             };
 
             if (!ModelState.IsValid) return NotFound();
@@ -96,7 +94,77 @@ namespace ArtHive.Controllers
             await _context.AddAsync(cartItem);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("ArtworkDetails", "Shop", new { id = artworkId });
+            //return RedirectToAction("ArtworkDetails", "Shop", new { id = artworkId });
+            return RedirectToAction("ViewMyCart");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> ViewMyCart()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var cart = await _context.Carts
+                .Include(cart => cart.User)
+                .Include(cart => cart.CartItems)
+                .ThenInclude(cartItem => cartItem.Artwork)
+                .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
+
+            return View(cart);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> DeleteCartItem(int cartItemId)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var cart = await _context.Carts
+                .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
+
+            if(cart == null) return NotFound();
+
+            var cartItem = await _context.CartItems
+                .Include(cartItem => cartItem.Artwork)
+                .FirstOrDefaultAsync(cartItem => cartItem.Cart == cart && cartItem.Id == cartItemId);
+
+            if (cartItem == null) return NotFound();
+
+            _context.CartItems.Remove(cartItem);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ViewMyCart");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Checkout()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var cart = await _context.Carts
+                .Include(cart => cart.User)
+                .Include(cart => cart.CartItems)
+                .ThenInclude(cartItem => cartItem.Artwork)
+                .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
+
+            if(cart == null) return NotFound();
+
+            var order = new Order
+            {
+                UserId = userId,
+                Cart = cart,
+                TotalPrice = cart.CartItems.Sum(cartItem => cartItem.Price * cartItem.Quantity),
+                Address = null,
+                City = null,
+                Province = null,
+                PostalCode = null,
+                Phone = null,
+                Email = null,
+                PaymentMethod = PaymentMethods.VISA
+            };
+
+            ViewData["PaymentMethods"] = new SelectList(Enum.GetValues(typeof(PaymentMethods)));
+
+            return View(order);
         }
     }
 }
