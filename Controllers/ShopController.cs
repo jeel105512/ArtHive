@@ -57,47 +57,6 @@ namespace ArtHive.Controllers
             return View(artwork);
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public async Task<IActionResult> AddToCart(int artworkId, int quantity)
-        //{
-        //    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-        //    var cart = await _context.Carts
-        //        .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
-
-        //    if (cart == null)
-        //    {
-        //        cart = new Cart { UserId = userId };
-
-        //        if (!ModelState.IsValid) return NotFound();
-
-        //        await _context.AddAsync(cart);
-        //        await _context.SaveChangesAsync();
-        //    }
-
-        //    var artwork = await _context.Artworks
-        //        .FirstOrDefaultAsync(artwork => artwork.Id == artworkId);
-
-        //    if (artwork == null) return NotFound();
-
-        //    var cartItem = new CartItem
-        //    {
-        //        Cart = cart,
-        //        Artwork = artwork,
-        //        Quantity = quantity,
-        //        Price = artwork.Price
-        //    };
-
-        //    if (!ModelState.IsValid) return NotFound();
-
-        //    await _context.AddAsync(cartItem);
-        //    await _context.SaveChangesAsync();
-
-        //    // return RedirectToAction("ArtworkDetails", "Shop", new { id = artworkId });
-        //    return RedirectToAction("ViewMyCart");
-        //}
-
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> AddToCart(int artworkId, int quantity)
