@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
+@*<h1>@ViewData["Title"]</h1>
 
 <div>
     <table class="table table-striped table-bordered">
@@ -57,4 +57,35 @@
 <div>
     <a class="btn btn-success" asp-action="Checkout">Checkout</a>
     <a asp-action="Index">Back to List</a>
+</div>*@
+
+
+<div id="cart">
+    <header>
+        <h1>@ViewData["Title"]</h1>
+    </header>
+    @foreach (var cartItem in Model.CartItems)
+    {
+        <div class="cart-item">
+            <div class="cart-item-image"><img src="~/images/artworks/@cartItem.Artwork.Image" alt=""></div>
+            <div class="cart-item-info">
+                <h2>@cartItem.Artwork.Title</h2>
+                <p>by @cartItem.Artwork.Creator</p>
+                <p>@cartItem.Artwork.Description</p>
+                <p>$@cartItem.Artwork.Price</p>
+                <p>Quantity: @cartItem.Quantity</p>
+                <div class="cart-item-info-buttons">
+                    <a asp-action="DeleteCartItem" asp-route-cartItemId="@cartItem.Id" class="anchor-link-button"><span class="anchor-link-button-text">remove</span></a>
+                    <a asp-action="ArtworkDetails" asp-route-id="@cartItem.ArtWorkId" asp-route-backAction="ViewMyCart" class="anchor-link-button"><span class="anchor-link-button-text">details</span></a>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="checkout-area">
+        @{
+            var total = Model.CartItems.Sum(cartItem => cartItem.Price * cartItem.Quantity);
+        }
+        <p>Total: $@total</p>
+        <a asp-action="Checkout" class="anchor-link-checkout-button"><span class="anchor-link-checkout-button-text">checkout</span></a>
+    </div>
 </div>

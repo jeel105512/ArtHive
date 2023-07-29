@@ -23,7 +23,7 @@
             <p>@Model.Description</p>
             @if (User.Identity.IsAuthenticated)
             {
-                <form asp-action="AddToCart">
+                <form asp-action="AddToCart" class="artwork-details-form">
                     <input type="hidden" name="artworkId" value="@Model.Id" />
                     <input type="number" name="quantity" value="1" min="1" step="1" class="form-control" />
                     <div class="anchor-link-button-add-to-cart">

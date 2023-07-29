@@ -57,44 +57,106 @@ namespace ArtHive.Controllers
             return View(artwork);
         }
 
+        //[HttpPost]
+        //[Authorize]
+        //public async Task<IActionResult> AddToCart(int artworkId, int quantity)
+        //{
+        //    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        //    var cart = await _context.Carts
+        //        .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
+
+        //    if (cart == null)
+        //    {
+        //        cart = new Cart { UserId = userId };
+
+        //        if (!ModelState.IsValid) return NotFound();
+
+        //        await _context.AddAsync(cart);
+        //        await _context.SaveChangesAsync();
+        //    }
+
+        //    var artwork = await _context.Artworks
+        //        .FirstOrDefaultAsync(artwork => artwork.Id == artworkId);
+
+        //    if (artwork == null) return NotFound();
+
+        //    var cartItem = new CartItem
+        //    {
+        //        Cart = cart,
+        //        Artwork = artwork,
+        //        Quantity = quantity,
+        //        Price = artwork.Price
+        //    };
+
+        //    if (!ModelState.IsValid) return NotFound();
+
+        //    await _context.AddAsync(cartItem);
+        //    await _context.SaveChangesAsync();
+
+        //    // return RedirectToAction("ArtworkDetails", "Shop", new { id = artworkId });
+        //    return RedirectToAction("ViewMyCart");
+        //}
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> AddToCart(int artworkId, int quantity)
         {
+            // Get the user's unique identifier (user ID)
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
+            // Find the active cart for the current user
             var cart = await _context.Carts
                 .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
 
+            // If the user doesn't have an active cart, create a new one
             if (cart == null)
             {
                 cart = new Cart { UserId = userId };
 
+                // Check if the model state is valid before proceeding
                 if (!ModelState.IsValid) return NotFound();
-                
+
                 await _context.AddAsync(cart);
                 await _context.SaveChangesAsync();
             }
 
+            // Find the artwork with the provided ID
             var artwork = await _context.Artworks
                 .FirstOrDefaultAsync(artwork => artwork.Id == artworkId);
 
+            // If the artwork doesn't exist, return a "Not Found" result
             if (artwork == null) return NotFound();
 
-            var cartItem = new CartItem
+            // Find the cart item for the current artwork and cart
+            var cartItem = await _context.CartItems.SingleOrDefaultAsync(cartItem => cartItem.ArtWorkId == artworkId && cartItem.Cart.UserId == userId);
+            if (cartItem != null)
             {
-                Cart = cart,
-                Artwork = artwork,
-                Quantity = quantity,
-                Price = artwork.Price
-            };
+                // If the cart item already exists, update its quantity
+                cartItem.Quantity += quantity;
+                _context.CartItems.Update(cartItem);
+            }
+            else
+            {
+                // If the cart item doesn't exist, create a new one
+                cartItem = new CartItem
+                {
+                    Cart = cart,
+                    Artwork = artwork,
+                    Quantity = quantity,
+                    Price = artwork.Price
+                };
 
-            if (!ModelState.IsValid) return NotFound();
+                // Check if the model state is valid before proceeding
+                if (!ModelState.IsValid) return NotFound();
 
-            await _context.AddAsync(cartItem);
+                await _context.AddAsync(cartItem);
+            }
+
+            // Save the changes to the database
             await _context.SaveChangesAsync();
 
-            //return RedirectToAction("ArtworkDetails", "Shop", new { id = artworkId });
+            // After successfully adding the item to the cart, redirect to the cart view
             return RedirectToAction("ViewMyCart");
         }
 
@@ -113,7 +175,7 @@ namespace ArtHive.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        //[HttpPost]
         public async Task<IActionResult> DeleteCartItem(int cartItemId)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
