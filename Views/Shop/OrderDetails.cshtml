@@ -1,0 +1,50 @@
+﻿@model ArtHive.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details for " + Model.Cart.User.Email;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Artwork Title</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var cartItem in Model.Cart.CartItems)
+            {
+                var subtotal = cartItem.Quantity * cartItem.Price;
+
+                <tr>
+                    <td>@cartItem.Artwork.Title</td>
+                    <td>@cartItem.Quantity</td>
+                    <td>@cartItem.Price</td>
+                    <td>@subtotal</td>
+                </tr>
+            }
+        </tbody>
+
+        <tfoot>
+            @{
+                var total = Model.Cart.CartItems.Sum(cartItem => cartItem.Price * cartItem.Quantity);
+            }
+
+            <tr>
+                <th>Total:</th>
+                <td colspan="3">@total</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
+</div>

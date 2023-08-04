@@ -50,6 +50,10 @@ namespace ArtHive.Controllers
         // GET: Artworks/Create
         public IActionResult Create()
         {
+            if (!_context.Collections.Any())
+            {
+                return RedirectToAction("Create", "Collections");
+            }
             ViewData["CollectionId"] = new SelectList(_context.Collections, "Id", "Name");
             return View();
         }

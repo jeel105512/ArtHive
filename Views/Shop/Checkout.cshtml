@@ -1,7 +1,7 @@
 ﻿@model ArtHive.Models.Order
 
 @{
-    ViewData["Title"] = "Order Details for " + Model.Cart.User.Email;
+    ViewData["Title"] = "Order Summary for " + Model.Cart.User.Email;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -46,11 +46,41 @@
 </div>
 
 <div>
-    <form asp-action="GoToPayment" class="">
+    <form asp-action="Payment" class="">
         <div class="form-group my-3">
             <label asp-for="Address" class="control-label"></label>
-            <textarea asp-for="Address" class="form-control" required></textarea>
+            <input asp-for="Address" class="form-control" required></input>
             <span asp-validation-for="Address" clas="text-danger"></span>
+        </div>
+
+        <div class="form-group my-3">
+            <label asp-for="City" class="control-label"></label>
+            <input asp-for="City" class="form-control" required></input>
+            <span asp-validation-for="City" clas="text-danger"></span>
+        </div>
+
+        <div class="form-group my-3">
+            <label asp-for="Province" class="control-label"></label>
+            <input asp-for="Province" class="form-control" required></input>
+            <span asp-validation-for="Province" clas="text-danger"></span>
+        </div>
+
+        <div class="form-group my-3">
+            <label asp-for="PostalCode" class="control-label"></label>
+            <input asp-for="PostalCode" class="form-control" required></input>
+            <span asp-validation-for="PostalCode" clas="text-danger"></span>
+        </div>
+
+        <div class="form-group my-3">
+            <label asp-for="Phone" class="control-label"></label>
+            <input asp-for="Phone" class="form-control" required></input>
+            <span asp-validation-for="Phone" clas="text-danger"></span>
+        </div>
+
+        <div class="form-group my-3">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" required></input>
+            <span asp-validation-for="Email" clas="text-danger"></span>
         </div>
 
         <div class="form-group my-3">

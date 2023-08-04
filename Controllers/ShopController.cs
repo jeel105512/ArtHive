@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
+using Stripe.BillingPortal;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace ArtHive.Controllers
@@ -11,10 +14,12 @@ namespace ArtHive.Controllers
     public class ShopController : Controller
     {
         private ApplicationDbContext _context;
+        private IConfiguration _configuration;
 
-        public ShopController(ApplicationDbContext context)
+        public ShopController(ApplicationDbContext context, IConfiguration configuration)
         {
             this._context = context;
+            this._configuration = configuration;
         }
 
         public async Task<IActionResult> ShopAll()
@@ -186,6 +191,134 @@ namespace ArtHive.Controllers
             ViewData["PaymentMethods"] = new SelectList(Enum.GetValues(typeof(PaymentMethods)));
 
             return View(order);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Payment(string address, string city, string province, string postalCode, string phone, string email, PaymentMethods paymentMethod)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var cart = await _context.Carts
+                .Include(cart => cart.CartItems)
+                .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
+
+            if(cart == null) return NotFound();
+
+            HttpContext.Session.SetString("Address", address);
+            HttpContext.Session.SetString("City", city);
+            HttpContext.Session.SetString("Province", province);
+            HttpContext.Session.SetString("PostalCode", postalCode);
+            HttpContext.Session.SetString("Phone", phone);
+            HttpContext.Session.SetString("Email", email);
+            HttpContext.Session.SetString("PaymentMethod", paymentMethod.ToString());
+
+            StripeConfiguration.ApiKey = _configuration.GetSection("Stripe")["SecretKey"];
+
+            var options = new Stripe.Checkout.SessionCreateOptions
+            {
+                LineItems = new List<SessionLineItemOptions>
+                {
+                  new SessionLineItemOptions
+                  {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        UnitAmount = ((long?)(cart.CartItems.Sum(cartItem => cartItem.Quantity * cartItem.Price) * 100)),
+                        Currency = "cad",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = "ArtHive Purchase"
+                        },
+                    },
+                    Quantity = 1
+                  },
+                },
+                PaymentMethodTypes = new List<string>
+                {
+                  "card"
+                },
+                Mode = "payment",
+                SuccessUrl = "https://" + Request.Host + "/Shop/SaveOrder",
+                CancelUrl = "https://" + Request.Host + "/Shop/ViewMyCart",
+            };
+
+            var service = new Stripe.Checkout.SessionService();
+            Stripe.Checkout.Session session = service.Create(options);
+
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303); // 303 => permanent redirect, 301 => temporary redierct
+        }
+
+        [Authorize]
+        new public async Task<IActionResult> SaveOrder()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var cart = await _context.Carts
+                .Include(cart => cart.CartItems)
+                .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
+
+            var address = HttpContext.Session.GetString("Address");
+            var city = HttpContext.Session.GetString("City");
+            var province = HttpContext.Session.GetString("Province");
+            var postalCode = HttpContext.Session.GetString("PostalCode");
+            var phone = HttpContext.Session.GetString("Phone");
+            var email = HttpContext.Session.GetString("Email");
+            var paymentMethod = HttpContext.Session.GetString("PaymentMethod");
+
+            var order = new Order
+            {
+                UserId = userId,
+                Cart = cart,
+                TotalPrice = cart.CartItems.Sum(cartItem => cartItem.Quantity * cartItem.Price),
+                Address = address,
+                City = city,
+                Province = province,
+                PostalCode = postalCode,
+                Phone = phone,
+                Email = email,
+                PaymentMethod = (PaymentMethods)Enum.Parse(typeof(PaymentMethods), paymentMethod),
+                PaymentReceived = true
+            };
+
+            await _context.AddAsync(order);
+            await _context.SaveChangesAsync();
+
+            cart.Active = false;
+            _context.Update(cart);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("OrderDetails", new { id = order.Id });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> OrderDetails(int id)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var order = await _context.Orders
+                .Include(order => order.User)
+                .Include(order => order.Cart)
+                .ThenInclude(cart => cart.CartItems)
+                .ThenInclude(cartItem => cartItem.Artwork)
+                .FirstOrDefaultAsync(order => order.UserId == userId && order.Id == id);
+
+            if (order == null) return NotFound();
+
+            return View(order);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Orders()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var orders = await _context.Orders
+                .OrderByDescending(order => order.Id)
+                .Where(order => order.UserId == userId)
+                .ToListAsync();
+
+            if (orders == null) return NotFound();
+
+            return View(orders);
         }
     }
 }
