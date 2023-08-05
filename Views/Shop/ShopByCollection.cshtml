@@ -5,13 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<header class="shop-by-category-header">
+<header class="shop-by-collection-header">
     <h1>@ViewData["Title"]</h1>
 </header>
-<div id="shop-by-category">
+<div id="shop-by-collection">
     @foreach(var collection in Model)
     {
-        <div class="shop-by-category-card">
+        <div class="shop-by-collection-card">
             @if (collection.Artworks != null && collection.Artworks.Any() && collection.Artworks.First().Image != null)
             {
                 <img src="/images/artworks/@collection.Artworks.First().Image" alt="Artwork Image" />
@@ -20,7 +20,7 @@
             {
                 <img src="/images/default-image.jpg" alt="Placeholder Image">
             }
-            <a asp-action="ShopByCollectionDetails" asp-route-id="@collection.Id" class="anchor-link-button"><span class="anchor-link-button-text">@collection.Name</span></a>
+            <a asp-action="ShopByCollectionDetails" asp-route-id="@collection.Id" class="shop-by-collection-card-anchor-link-button"><span class="shop-by-collection-card-anchor-link-button-text">@collection.Name</span></a>
         </div>
     }
 </div>

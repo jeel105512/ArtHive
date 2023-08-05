@@ -8,7 +8,7 @@ namespace ArtHive.Models
         MasterCard,
         InteractDebit,
         PayPel,
-        Strip
+        Stripe
     }
     public class Order
     {

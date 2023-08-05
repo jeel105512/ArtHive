@@ -7,93 +7,85 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Artwork Title</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
+<div id="checkout">
+    <div class="checkout-item-container">
+        @foreach(var cartItem in Model.Cart.CartItems)
+        {
+            <div class="checkout-item">
+                <div class="checkout-item-top">
+                    <div class="checkout-item-top-left">
+                        <img src="~/images/artworks/@cartItem.Artwork.Image" alt="@cartItem.Artwork.Title">
+                    </div>
+                    <div class="checkout-item-top-right">
+                        <p><span>Artwork Name:</span> <span>@cartItem.Artwork.Title</span></p>
+                        <p><span>Quantity:</span> <span>@cartItem.Quantity</span></p>
+                        <p><span>Price:</span> <span>$@cartItem.Artwork.Price</span></p>
+                    </div>
+                </div>
+                <div class="checkout-item-bottom">
+                    @{
+                        var cartItemTotal = cartItem.Quantity * cartItem.Artwork.Price;
+                    }
+                    <p class="subtotal">$@cartItemTotal </p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="checkout-total">
+        @{
+            var cartTotal = Model.Cart.CartItems.Sum(cartItem => cartItem.Quantity * cartItem.Artwork.Price);
+        }
+        <p>Total: $@cartTotal</p>
+    </div>
+    <div class="checkout-form">
+        <form asp-action="Payment" class="">
+            <div class="form-group my-3">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" required></input>
+                <span asp-validation-for="Address" clas="text-danger"></span>
+            </div>
 
-        <tbody>
-            @foreach (var cartItem in Model.Cart.CartItems)
-            {
-                var subtotal = cartItem.Quantity * cartItem.Price;
+            <div class="form-group my-3">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" required></input>
+                <span asp-validation-for="City" clas="text-danger"></span>
+            </div>
 
-                <tr>
-                    <td>@cartItem.Artwork.Title</td>
-                    <td>@cartItem.Quantity</td>
-                    <td>@cartItem.Price</td>
-                    <td>@subtotal</td>
-                </tr>
-            }
-        </tbody>
+            <div class="form-group my-3">
+                <label asp-for="Province" class="control-label"></label>
+                <input asp-for="Province" class="form-control" required></input>
+                <span asp-validation-for="Province" clas="text-danger"></span>
+            </div>
 
-        <tfoot>
-            @{
-                var total = Model.Cart.CartItems.Sum(cartItem => cartItem.Price * cartItem.Quantity);
-            }
+            <div class="form-group my-3">
+                <label asp-for="PostalCode" class="control-label"></label>
+                <input asp-for="PostalCode" class="form-control" required></input>
+                <span asp-validation-for="PostalCode" clas="text-danger"></span>
+            </div>
 
-            <tr>
-                <th>Total:</th>
-                <td colspan="3">@total</td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
+            <div class="form-group my-3">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" required></input>
+                <span asp-validation-for="Phone" clas="text-danger"></span>
+            </div>
 
-<div>
-    <form asp-action="Payment" class="">
-        <div class="form-group my-3">
-            <label asp-for="Address" class="control-label"></label>
-            <input asp-for="Address" class="form-control" required></input>
-            <span asp-validation-for="Address" clas="text-danger"></span>
-        </div>
+            <div class="form-group my-3">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" required></input>
+                <span asp-validation-for="Email" clas="text-danger"></span>
+            </div>
 
-        <div class="form-group my-3">
-            <label asp-for="City" class="control-label"></label>
-            <input asp-for="City" class="form-control" required></input>
-            <span asp-validation-for="City" clas="text-danger"></span>
-        </div>
+            <div class="form-group my-3">
+                <label asp-for="PaymentMethod" class="control-label"></label>
+                <select asp-for="PaymentMethod" calss="form-control" asp-items="ViewBag.PaymentMethods"></select>
+            </div>
 
-        <div class="form-group my-3">
-            <label asp-for="Province" class="control-label"></label>
-            <input asp-for="Province" class="form-control" required></input>
-            <span asp-validation-for="Province" clas="text-danger"></span>
-        </div>
-
-        <div class="form-group my-3">
-            <label asp-for="PostalCode" class="control-label"></label>
-            <input asp-for="PostalCode" class="form-control" required></input>
-            <span asp-validation-for="PostalCode" clas="text-danger"></span>
-        </div>
-
-        <div class="form-group my-3">
-            <label asp-for="Phone" class="control-label"></label>
-            <input asp-for="Phone" class="form-control" required></input>
-            <span asp-validation-for="Phone" clas="text-danger"></span>
-        </div>
-
-        <div class="form-group my-3">
-            <label asp-for="Email" class="control-label"></label>
-            <input asp-for="Email" class="form-control" required></input>
-            <span asp-validation-for="Email" clas="text-danger"></span>
-        </div>
-
-        <div class="form-group my-3">
-            <label asp-for="PaymentMethod" class="control-label"></label>
-            <select asp-for="PaymentMethod" calss="form-control" asp-items="ViewBag.PaymentMethods"></select>
-        </div>
-
-        <div class="form-group my-3">
-            <input type="submit" value="Go to Payment" class="btn btn-success" />
-        </div>
-    </form>
-</div>
-
-<div>
-    <a asp-action="ViewMyCart">Back to Cart</a>
+            <div class="checkout-buttons">
+                <div class="checkout-button">
+                    <input type="submit" value="Go to Payment" class="checkout-button-text" />
+                </div>
+                <a asp-action="ViewMyCart" class="anchor-link-button"><span class="anchor-link-button-text">Back to cart</span></a>
+            </div>
+        </form>
+    </div>
 </div>

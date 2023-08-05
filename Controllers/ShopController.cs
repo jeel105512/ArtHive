@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Stripe;
 using Stripe.BillingPortal;
 using Stripe.Checkout;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace ArtHive.Controllers
@@ -93,7 +95,7 @@ namespace ArtHive.Controllers
             if (artwork == null) return NotFound();
 
             // Find the cart item for the current artwork and cart
-            var cartItem = await _context.CartItems.SingleOrDefaultAsync(cartItem => cartItem.ArtWorkId == artworkId && cartItem.Cart.UserId == userId);
+            var cartItem = await _context.CartItems.SingleOrDefaultAsync(cartItem => cartItem.ArtWorkId == artworkId && cartItem.Cart.UserId == userId && cartItem.Cart.Active == true);
             if (cartItem != null)
             {
                 // If the cart item already exists, update its quantity
@@ -185,7 +187,7 @@ namespace ArtHive.Controllers
                 PostalCode = null,
                 Phone = null,
                 Email = null,
-                PaymentMethod = PaymentMethods.VISA
+                PaymentMethod = PaymentMethods.Stripe
             };
 
             ViewData["PaymentMethods"] = new SelectList(Enum.GetValues(typeof(PaymentMethods)));
@@ -285,6 +287,15 @@ namespace ArtHive.Controllers
             cart.Active = false;
             _context.Update(cart);
             await _context.SaveChangesAsync();
+
+            // trying something
+            cart = new Cart { UserId = userId, Active = true };
+
+            if (!ModelState.IsValid) return NotFound();
+
+            await _context.AddAsync(cart);
+            await _context.SaveChangesAsync();
+
 
             return RedirectToAction("OrderDetails", new { id = order.Id });
         }
