@@ -8,7 +8,7 @@
 
 html,
 body {
-    /*height: 100%;*/
+    height: 100%;
     font-family: 'Roboto Mono', monospace;
 }
 
@@ -33,6 +33,10 @@ body {
 
 .img-thumbnail {
     max-width: 100px;
+}
+
+.height-100{
+    height: 100%;
 }
 
 /* Shop By Collection */
@@ -604,3 +608,687 @@ body {
         z-index: -1;
         width: 100%;
     }
+
+/*Contact-Us*/
+#contact-us {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    justify-content: center;
+    align-items: center;
+}
+
+    #contact-us > h1 {
+        font-size: 4rem;
+        font-weight: bold;
+    }
+
+    #contact-us > p {
+        font-size: 1.2rem;
+    }
+
+    #contact-us form {
+        width: 100%;
+        height: 55%;
+        display: grid;
+        gap: 1em;
+        grid-template-rows: 1fr 3fr;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "name email"
+            "message message";
+    }
+
+.contact-us-form-name {
+    grid-area: name;
+}
+
+.contact-us-form-email {
+    grid-area: email;
+}
+
+.contact-us-form-message {
+    grid-area: message;
+}
+
+.contact-us-form-name,
+.contact-us-form-email,
+.contact-us-form-message {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+    .contact-us-form-name label,
+    .contact-us-form-email label,
+    .contact-us-form-message label {
+        font-size: 1.2rem;
+    }
+
+    .contact-us-form-name input,
+    .contact-us-form-email input,
+    .contact-us-form-message textarea {
+        height: 100%;
+        padding: 0.5em;
+        font-size: 1.1rem;
+        border: 1px solid #d9d9d9;
+    }
+
+
+/*Home*/
+/* Hero Header */
+/* ------------------------------------------------------------------------------------- */
+#hero-header {
+    height: 87%;
+    text-align: center;
+
+    /* background: url(../images/Wall_Painting.avif);
+    background-position: center;
+    background-size: cover; */
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.3s ease;
+}
+
+.hero-header-top {
+    font-weight: bold;
+    padding: 1em 0;
+    /* color: #fff; */
+    border-bottom: 1px solid #bebebe;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.hero-header-top h3 {
+    font-size: 1.5rem;
+}
+
+.hero-header-top h1 {
+    font-size: 3.5rem;
+}
+
+.hero-header-top h2 {
+    font-size: 2rem;
+}
+
+.hero-header-bottom {
+    width: 70%;
+    display: grid;
+    gap: 1em;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.hero-header-bottom a {
+    text-decoration: none;
+    padding: 0.5em;
+    background: #ffffff37;
+    color: #000;
+
+    transition: all 0.3s ease;
+}
+
+
+.hero-header-bottom img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.wall:hover {
+    background: #fff;
+}
+
+.encaustic:hover {
+    background: #fff;
+}
+
+.environment:hover {
+    background: #fff;
+}
+
+.ink-wash:hover {
+    background: #fff;
+}
+
+.nature:hover {
+    background: #fff;
+}
+
+.space:hover {
+    background: #fff;
+}
+
+.water-color:hover {
+    background: #fff;
+}
+
+.wall-hero-header {
+    background: url(../images/Wall_Painting.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+
+.encaustic-hero-header {
+    background: url(../images/Encaustic_painting.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.environment-hero-header {
+    background: url(../images/Environment.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.ink-wash-hero-header {
+    background: url(../images/Ink_Wash_painting.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.nature-hero-header {
+    background: url(../images/Nature.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.space-hero-header {
+    background: url(../images/Space.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.water-color-hero-header {
+    background: url(../images/Watercolor_painting.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+
+/* Unleash Creativity */
+/* ------------------------------------------------------------------------------------- */
+#unleash-creativity{
+    height: 100%;
+
+    display: flex;
+}
+
+.unleash-creativity-image{
+    flex: 1;
+    padding: 5em;
+}
+
+.unleash-creativity-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.unleash-creativity-info{
+    flex: 1;
+    padding: 0 2em 0 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+}
+
+.unleash-creativity-info p:nth-of-type(1){
+    font-size: 0.9rem;
+}
+
+.unleash-creativity-info h2{
+    font-size: 2rem;
+}
+
+.unleash-creativity-info p:nth-of-type(2){
+    line-height: 1.5;
+    text-align: center;
+}
+
+.anchor-link-button{
+    overflow: hidden;
+    text-decoration: none;
+    color: #000;
+    padding: 0.5em 1.2em;
+    cursor: pointer;
+
+    border: 1px solid #000;
+    border-radius: 25px;
+
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.anchor-link-button::before{
+    content: "";
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 0%;
+    height: 100%;
+
+    background: #000;
+    transition: all 0.3s ease;
+}
+
+.anchor-link-button:hover .anchor-link-button-text{
+    color: #fff;
+}
+
+.anchor-link-button:hover::before{
+    z-index: -1;
+    width: 100%;
+}
+
+/* Home Corosol */
+/* ------------------------------------------------------------------------------------- */
+#home-corosol{
+    height: 100%;
+    padding: 1em;
+    border-top: 1px solid #e6e6e6;
+}
+
+header{
+    height: 10%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home-corosol-gallery{
+    height: 70%;
+    position: relative;
+    border: 1px solid #e9e9e9fe;
+}
+
+.figure{
+    border: 1px solid #ffffff1a;
+    overflow: hidden;
+
+    height: 100%;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 3fr 1fr;
+
+    position: absolute;
+    transition: all 0.4s ease;
+}
+
+.figure[data-status="unknown"]{
+    transform: scale(0);
+    transition: none;
+}
+
+.figure[data-status="active"]{
+    transition-delay: 0.1s;
+}
+
+.figure[data-status="after"]{ /*this will transition the figure to right side scaling it down to zero*/
+    transform: translateX(50%) scale(0);
+}
+
+.figure[data-status="before"]{ /*this will transition the figure to left side scaling it down to zero*/
+    transform: translateX(-50%) scale(0);
+}
+
+.figure[data-status="becoming-active-from-after"]{ /*moving the figure to the right side so that it comes from right to left instantly without any transition*/
+    transform: translateX(50%) scale(0);
+    transition: none;
+}
+
+.figure[data-status="becoming-active-from-before"]{ /*moving the figure to the left side so that it comes from left to right instantly without any transition*/
+    transform: translateX(-50%) scale(0);
+    transition: none;
+}
+
+.image{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.description{
+    padding: 5em 1em;
+
+    display: flex;
+    justify-content: center;
+    align-items: end;
+
+    border-bottom: 1px solid #e9e9e9fe;
+}
+
+.description p a{
+    text-decoration: none;
+    color: #4287ff;
+}
+
+.title{
+    width: 100%;
+    height: 100%;
+
+    font-size: 3rem;
+    padding: 0.25em;
+
+    display: flex;
+    align-items: center;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
+    font-size: 4rem;
+    border-left: 1px solid #e9e9e9fe;
+}
+
+.buttons i{
+    cursor: pointer;
+}
+
+.allImages{
+    width: 100%;
+    height: 20%;
+    padding: 1em;
+    overflow: hidden;
+
+    border: 1px solid #e9e9e9fe;
+}
+
+.allImages ul{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+
+.allImages ul li{
+    flex: 1;
+
+    padding: 0.5em;
+}
+
+.allImages ul li img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    cursor: pointer;
+
+    transition: all ease 0.4s;
+}
+
+.gray{
+    filter: grayscale(100%);
+}
+
+/* How It Works */
+/* ------------------------------------------------------------------------------------- */
+#how-it-works{
+    height: 100%;
+    padding: 2em 0em;
+
+    border-top: 1px solid #e6e6e6;
+
+    display: flex;
+    gap: 1em;
+    flex-direction: column;
+}
+
+.how-it-works-top{
+    flex: 1;
+    padding: 0 5em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    justify-content: center;
+    align-items: center;
+}
+
+.how-it-works-top h2{
+    font-size: 2.5rem;
+}
+
+.how-it-works-top-info{
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+
+    text-align: center;
+}
+
+.how-it-works-bottom{
+    flex: 1;
+
+    display: flex;
+    gap: 2em;
+    
+    background: rgba(142, 159, 255, 0.08);
+}
+
+.how-it-works-bottom-image{
+    flex: 1;
+
+    width: 100%;
+    height: 100%;
+}
+
+.how-it-works-bottom-image-img{
+    width: 100%;
+    height: 100%;
+
+    background: url(../images/how-it-works-bottom-image.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.how-it-works-bottom-info{
+    flex: 1;
+    padding: 1em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    justify-content: center;
+    align-items: center;
+}
+
+.how-it-works-bottom-info p{
+    font-size: 0.9rem;
+}
+
+.how-it-works-bottom-info h2{
+    font-size: 1.75rem;
+}
+
+/* Homepage End */
+/* ------------------------------------------------------------------------------------- */
+#homepage-end{
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.homepage-top{
+    flex: 1;
+
+    background: url(../images/Watercolor_painting.jpg);
+    background-position: center;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage-top p{
+    font-size: 0.9rem;
+}
+
+.homepage-top h2{
+    font-size: 2rem;
+}
+
+.homepage-top div{
+    display: flex;
+}
+
+.homepage-top div input{
+    padding: 1em 2em;
+    border: 1px solid #fff;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.homepage-top div button{
+    padding: 1em 2em;
+    border: 1px solid #fff;
+    color: #fff;
+    background: #000;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    cursor: pointer;
+}
+
+.homepage-bottom{
+    flex: 2;
+    color: #fff;
+    background: #000;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5em;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage-bottom-top{
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.homepage-bottom-top div{
+    flex: 1;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: start;
+    align-items: center;
+}
+
+.homepage-bottom-top div:nth-child(1){
+    justify-content: center;
+    font-size: 5rem;
+}
+
+.homepage-bottom-top div a{
+    text-decoration: none;
+}
+
+.homepage-bottom-bold{
+    font-weight: bold;
+    color: #fff;
+}
+
+.homepage-bottom-light{
+    color: #c1c1c1;
+}
+
+.homepage-bottom-top div:nth-child(5){
+    height: 50%;
+    align-self: start;
+}
+
+.homepage-bottom-top div:nth-child(5) div:nth-of-type(1){
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+
+    border-bottom: 1px solid #c1c1c1;
+}
+
+.homepage-bottom-top div:nth-child(5) div:nth-of-type(1) input{
+    padding: 0.5em 1em;
+    background: none;
+    border: none;
+    color: #fff;
+    
+    /* border-bottom: 2px solid #fff; */
+}
+
+.homepage-bottom-top div:nth-child(5) div:nth-of-type(1) button{
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.homepage-bottom-top div:nth-child(5) div:nth-of-type(2){
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 1.75rem;
+    width: 100%;
+}
+
+.homepage-bottom-bottom{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.homepage-bottom-bottom a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+
+    padding: 1em;
+    border: 1px solid #fff;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage-bottom-bottom p{
+    font-size: 0.9rem;
+    color: #c1c1c1;
+}

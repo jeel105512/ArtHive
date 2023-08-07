@@ -21,8 +21,4 @@
     <PackageReference Include="Stripe.net" Version="41.27.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\artworks\" />
-  </ItemGroup>
-
 </Project>

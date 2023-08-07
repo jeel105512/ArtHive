@@ -1,8 +1,9 @@
 ﻿@model List<MenuItem>
 
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3 w-100 fixed-top">
+
     <div class="container-fluid">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ArtHive</a>
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-brands fa-hive h1 d-inline-block align-middle"></i> ArtHive</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,13 +23,13 @@
                                 @menuItem.Label
                             </a>
 
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu bg-dark text-light" aria-labelledby="navbarDropdown">
                                 @foreach (var dropdownItem in menuItem.DropdownItems)
                                 {
                                     if (menuItem.Authorized.GetValueOrDefault() && !User.Identity.IsAuthenticated) continue;
                                     if (User.Identity.IsAuthenticated && menuItem.AllowedRoles != null && menuItem.AllowedRoles.Count > 0 && menuItem.AllowedRoles.Find(role => User.IsInRole(role)) == null) continue;
                                     <li>
-                                        <a class="dropdown-item" asp-controller="@dropdownItem.Controller" asp-action="@dropdownItem.Action">@dropdownItem.Label</a>
+                                        <a class="dropdown-item bg-dark text-light" asp-controller="@dropdownItem.Controller" asp-action="@dropdownItem.Action">@dropdownItem.Label</a>
                                     </li>
                                 }
                             </ul>
@@ -37,7 +38,7 @@
                         continue;
                     }
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="@menuItem.Controller" asp-action="@menuItem.Action">@menuItem.Label</a>
+                        <a class="nav-link text-light" asp-controller="@menuItem.Controller" asp-action="@menuItem.Action">@menuItem.Label</a>
                     </li>
                 }
             </ul>

@@ -17,16 +17,16 @@
     <header>
         @await Component.InvokeAsync("NavigationMenu")
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="height-100">
+        <main role="main" class="height-100">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer class="footer text-muted">
+        @*<div class="container">
             &copy; 2023 - ArtHive - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+        </div>*@
     </footer>
     <script src="https://unpkg.com/colcade@0/colcade.js"></script> <!-- for masonry -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
