@@ -1,6 +1,16 @@
 ﻿@model ArtHive.Models.Cart
 
 @{
+    if (Model == null || Model.CartItems == null || Model.CartItems.Count == 0)
+    {
+        <div class="alert alert-warning">
+            <p>You must add items to your cart.</p>
+        </div>
+        return;
+    }
+}
+
+@{
     ViewData["Title"] = "Cart Details for " + Model.User.Email;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }

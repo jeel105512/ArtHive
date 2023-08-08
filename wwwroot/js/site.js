@@ -1,13 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-// for masonry
-var colc = new Colcade(".grid", {
-    columns: ".grid-col",
-    items: ".grid-item",
-});
+﻿
 
 // Home Page
 const heroHeader = document.querySelector("#hero-header");
@@ -19,40 +10,54 @@ const naturePainting = document.querySelector(".nature");
 const spacePainting = document.querySelector(".space");
 const waterColorPainting = document.querySelector(".water-color");
 
-wallPainting.addEventListener("mouseover", () => {
-    heroHeader.setAttribute('class', '');
-    heroHeader.classList.add("wall-hero-header");
-})
+if (wallPainting) {
+    wallPainting.addEventListener("mouseover", () => {
+        heroHeader.setAttribute('class', '');
+        heroHeader.classList.add("wall-hero-header");
+    });
+}
 
-encausticPainting.addEventListener("mouseover", () => {
-    heroHeader.setAttribute('class', '');
-    heroHeader.classList.add("encaustic-hero-header");
-})
+if (encausticPainting) {
+    encausticPainting.addEventListener("mouseover", () => {
+        heroHeader.setAttribute('class', '');
+        heroHeader.classList.add("encaustic-hero-header");
+    });
+} 
 
-environmentPainting.addEventListener("mouseover", () => {
-    heroHeader.setAttribute('class', '');
-    heroHeader.classList.add("environment-hero-header");
-})
+if (environmentPainting) {
+    environmentPainting.addEventListener("mouseover", () => {
+        heroHeader.setAttribute('class', '');
+        heroHeader.classList.add("environment-hero-header");
+    });
+} 
 
-inkWashPainting.addEventListener("mouseover", () => {
-    heroHeader.setAttribute('class', '');
-    heroHeader.classList.add("ink-wash-hero-header");
-})
+if (inkWashPainting) {
+    inkWashPainting.addEventListener("mouseover", () => {
+        heroHeader.setAttribute('class', '');
+        heroHeader.classList.add("ink-wash-hero-header");
+    });
+} 
 
-naturePainting.addEventListener("mouseover", () => {
-    heroHeader.setAttribute('class', '');
-    heroHeader.classList.add("nature-hero-header");
-})
+if (naturePainting) {
+    naturePainting.addEventListener("mouseover", () => {
+        heroHeader.setAttribute('class', '');
+        heroHeader.classList.add("nature-hero-header");
+    });
+} 
 
-spacePainting.addEventListener("mouseover", () => {
-    heroHeader.setAttribute('class', '');
-    heroHeader.classList.add("space-hero-header");
-})
+if (spacePainting) {
+    spacePainting.addEventListener("mouseover", () => {
+        heroHeader.setAttribute('class', '');
+        heroHeader.classList.add("space-hero-header");
+    });
+}
 
-waterColorPainting.addEventListener("mouseover", () => {
-    heroHeader.setAttribute('class', '');
-    heroHeader.classList.add("water-color-hero-header");
-})
+if (waterColorPainting) {
+    waterColorPainting.addEventListener("mouseover", () => {
+        heroHeader.setAttribute('class', '');
+        heroHeader.classList.add("water-color-hero-header");
+    });
+}
 
 
 // Home Corosol
@@ -82,7 +87,7 @@ function addGrayClass(arr, index) {
 
 // calling the function to take initial effect of adding gray class to all images except
 // the first one
-addGrayClass(images, 0);
+if (images && images.length > 0) addGrayClass(images, 0);
 
 // ul li images
 images.forEach((ele, index) => { // index => nextIndex
@@ -161,3 +166,21 @@ function setActiveFigure(nextIndex) {
   // adding the gray class to all the ul li images except new current image (next index) 
   addGrayClass(images, nextIndex);
 }
+
+
+
+
+
+
+
+
+// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// for details on configuring this project to bundle and minify static web assets.
+
+// Write your JavaScript code.
+
+// for masonry
+var colc = new Colcade(".grid", {
+    columns: ".grid-col",
+    items: ".grid-item",
+});
