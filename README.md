@@ -13,5 +13,4 @@ This application solves one problem for creators not being able to sell their ar
 - Strip Peyment
 
 ## Images Created from
-All the images used in the application are created with the help of Leonardo.Ai.
-[Leonardo.Ai](https://app.leonardo.ai/)
+All the images used in the application are created with the help of [Leonardo.Ai](https://app.leonardo.ai/)
