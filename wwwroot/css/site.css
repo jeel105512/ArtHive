@@ -1293,3 +1293,167 @@ header{
     font-size: 0.9rem;
     color: #c1c1c1;
 }
+
+/*About Page*/
+#about{
+    height: 100%;
+}
+
+.about-header{
+    height: 100%;
+    padding: 5em;
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    justify-content: center;
+    align-items: start;
+
+    background: url(../images/about_header_bg.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.about-header > h1{
+    font-size: 2.5rem;
+}
+
+.about-header p{
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.about-header-cards-container{
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.about-header-card{
+    padding: 2em 1em;
+    background: #00000005;
+    backdrop-filter: blur(4px);
+
+    display: flex;
+    gap: 0.75em;
+    align-items: start;
+
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+}
+
+.about-header-card-right p:nth-of-type(1){
+    font-weight: bold;
+}
+
+.about-header-card-right p:nth-of-type(2){
+    font-weight: lighter;
+}
+
+.about-team{
+    height: 75%;
+    padding: 10em 3em;
+
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+    align-items: start;
+}
+
+.about-team-left{
+    flex: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.about-team-left h2{
+    font-size: 2.5rem;
+}
+
+.about-team-left p{
+    line-height: 1.5;
+}
+
+.about-team-right{
+    flex: 3;
+
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.about-team-card{
+    display: flex;
+    gap: 1em;
+}
+
+.about-team-card-left img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+.about-team-card-right{
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    justify-content: center;
+}
+
+.about-team-card-right p:nth-child(2){
+    font-weight: normal;
+    font-size: 1rem;
+    color: #a754ff;
+}
+
+.about-trust{
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+    justify-content: center;
+    align-items: center;
+
+    color: #fff;
+    background: url(../images/about_trust_bg.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.about-trust-title{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-trust-title h2{
+    font-size: 2.5rem;
+}
+
+.about-trust-numbers{
+    width: 80%;
+    padding: 2em 5em;
+    
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+}
+
+.about-trust-numbers-card{
+    text-align: center;
+}
+
+.about-trust-numbers-card p:nth-of-type(1){
+    font-size: 1.5rem;
+    font-weight: bold;
+}

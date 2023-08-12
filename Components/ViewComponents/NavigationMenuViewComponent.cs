@@ -9,7 +9,6 @@ namespace ArtHive.Components.ViewComponents
         {
             var menuItems = new List<MenuItem>
             {
-                new MenuItem { Controller = "Home", Action = "Index", Label = "Home" },
                 new MenuItem { Controller = "Shop", Action = "ViewMyCart", Label = "Cart", Authorized = true },
                 new MenuItem { Controller = "Shop", Action = "Orders", Label = "Orders", Authorized = true },
                 new MenuItem { Controller = "Shop", Action = "Index", Label = "Shop", DropdownItems = new List<MenuItem>{

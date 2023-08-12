@@ -1,15 +1,13 @@
 ﻿@model ArtHive.Models.Artwork
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Atrwork Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1 class="p-3">@ViewData["Title"]</h1>
 
-<div>
-    <h4>Artwork</h4>
-    <hr />
+<div class="mx-3">
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
@@ -49,7 +47,7 @@
         </dd>
     </dl>
 </div>
-<div>
+<div class="mx-3">
     <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edit</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

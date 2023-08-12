@@ -1,15 +1,12 @@
 ﻿@model ArtHive.Models.Artwork
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Artwork";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Artwork</h4>
-<hr />
-<div class="row">
+<h1 class="p-3">@ViewData["Title"]</h1>
+<div class="row mx-3">
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -58,7 +55,7 @@
     </div>
 </div>
 
-<div>
+<div class="mx-3">
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
