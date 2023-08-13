@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="p-3">@ViewData["Title"]</h1>
 
-<div id="checkout">
+<div id="checkout" class="p-5">
     <div class="checkout-item-container">
         @foreach(var cartItem in Model.Cart.CartItems)
         {

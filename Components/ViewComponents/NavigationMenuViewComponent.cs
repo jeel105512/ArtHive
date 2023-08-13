@@ -22,7 +22,7 @@ namespace ArtHive.Components.ViewComponents
                     new MenuItem {Controller = "Carts", Action = "Index", Label = "Carts"},
                 }, Authorized = true, AllowedRoles = new List<string>{ "Administrator" } },
                 new MenuItem { Controller = "Home", Action = "About", Label = "About" },
-                new MenuItem { Controller = "Home", Action = "ContactUs", Label = "ContactUs" },
+                new MenuItem { Controller = "Home", Action = "ContactUs", Label = "Contact Us" },
             };
             return View(menuItems);
         } 

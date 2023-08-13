@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <label asp-for="Image" class="control-label"></label>
-                        <input type="file" asp-for="Image" class="form-control" />
+                        <input type="file" asp-for="Image" class="form-control" onchange="previewImage(event)" />
                         <span asp-validation-for="Image" class="text-danger"></span>
                     </div>
                     <div class="col-sm-4">
