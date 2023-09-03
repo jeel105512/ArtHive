@@ -25,7 +25,7 @@ namespace ArtHive.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Artworks.Include(a => a.Collection);
-            return View(await applicationDbContext.ToListAsync());
+            return View("Index", await applicationDbContext.ToListAsync());
         }
 
         // GET: Artworks/Details/5
@@ -33,7 +33,8 @@ namespace ArtHive.Controllers
         {
             if (id == null || _context.Artworks == null)
             {
-                return NotFound();
+                //return NotFound();
+                return View("404");
             }
 
             var artwork = await _context.Artworks
@@ -41,10 +42,11 @@ namespace ArtHive.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (artwork == null)
             {
-                return NotFound();
+                //return NotFound();
+                return View("404");
             }
 
-            return View(artwork);
+            return View("Details", artwork);
         }
 
         // GET: Artworks/Create

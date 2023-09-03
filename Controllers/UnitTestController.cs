@@ -6,7 +6,10 @@ namespace ArtHive.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            // put a variable in a ViewData (similar to ViewBag)
+            ViewData["Message"] = "This is a ViewData message";
+            
+            return View("Index");
         }
     }
 }
