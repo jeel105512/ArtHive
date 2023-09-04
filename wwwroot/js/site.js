@@ -1,4 +1,4 @@
-﻿
+﻿// used git to clone it
 
 // Home Page
 const heroHeader = document.querySelector("#hero-header");
