@@ -14,3 +14,6 @@ This application solves one problem for creators not being able to sell their ar
 
 ## Images Created from
 All the images used in the application are created with the help of [Leonardo.Ai](https://app.leonardo.ai/)
+
+## Local Development
+- Edited this using the console in VsCode for practice
